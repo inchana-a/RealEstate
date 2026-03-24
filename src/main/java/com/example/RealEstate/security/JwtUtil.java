@@ -40,7 +40,7 @@ import java.util.Date;
                     && !isTokenExpired(token);
         }
 
-        public boolean isTokenExpired(String token) {
+        private boolean isTokenExpired(String token) {
             return parseClaims(token)
                     .getExpiration()
                     .before(new Date());

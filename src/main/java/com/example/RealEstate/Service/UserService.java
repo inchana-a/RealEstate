@@ -1,6 +1,7 @@
 package com.example.RealEstate.Service;
 
 import com.example.RealEstate.Enum.Role;
+import com.example.RealEstate.Exceptions.DuplicateEmailException;
 import com.example.RealEstate.Model.User;
 import com.example.RealEstate.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,11 @@ public class UserService {
 
     // Register a new user
     public User registerUser(User user) {
+
+        user.setEmail(user.getEmail().toLowerCase());
+
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already registered: " + user.getEmail());
+            throw new DuplicateEmailException("Email already registered: " + user.getEmail());
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
