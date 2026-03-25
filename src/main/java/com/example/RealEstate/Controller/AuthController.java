@@ -1,6 +1,7 @@
 package com.example.RealEstate.Controller;
 
 import com.example.RealEstate.Dto.AuthResponse;
+import com.example.RealEstate.Dto.ForgotPasswordRequest;
 import com.example.RealEstate.Dto.LoginRequest;
 import com.example.RealEstate.Model.User;
 import com.example.RealEstate.Service.UserService;
@@ -44,6 +45,16 @@ public class AuthController {
                 "Login successful",
                 user.getUserId(),
                 user.getEmail()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+
+        String response = userService.forgotPassword(
+                request.getEmail(),
+                request.getNewPassword()
         );
 
         return ResponseEntity.ok(response);

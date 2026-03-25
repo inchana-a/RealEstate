@@ -94,4 +94,13 @@ public class UserService {
 
         return user;
     }
+    public String forgotPassword(String email, String newPassword) {
+
+        User user = getUserByEmail(email.toLowerCase());
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return "Password reset successful";
+    }
 }
