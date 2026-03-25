@@ -17,38 +17,31 @@ public class UserController {
 
     private final UserService userService;
 
-    // POST /api/users/register
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User saved = userService.registerUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-    }
-
-    // GET /api/users/{id}
+    // GET /api/users/{id} user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    // GET /api/users
+    // GET /api/users all users
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    // GET /api/users/role/{role}
+    // GET /api/users/role/{role} users by role
     @GetMapping("/role/{role}")
     public ResponseEntity<List<User>> getByRole(@PathVariable Role role) {
         return ResponseEntity.ok(userService.getUsersByRole(role));
     }
 
-    // PUT /api/users/{id}
+    // PUT /api/users/{id} UPDATE user
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
-    // PATCH /api/users/{id}/toggle-status
+    // PATCH /api/users/{id}/toggle-status ENABLE / DISABLE user
     @PatchMapping("/{id}/toggle-status")
     public ResponseEntity<User> toggleStatus(@PathVariable Long id) {
         return ResponseEntity.ok(userService.toggleUserStatus(id));
