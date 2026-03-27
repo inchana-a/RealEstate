@@ -3,6 +3,8 @@ package com.example.RealEstate.Controller;
 import com.example.RealEstate.Dto.AuthResponse;
 import com.example.RealEstate.Dto.ForgotPasswordRequest;
 import com.example.RealEstate.Dto.LoginRequest;
+import com.example.RealEstate.Dto.RegisterRequest;
+import com.example.RealEstate.Enum.Role;
 import com.example.RealEstate.Model.User;
 import com.example.RealEstate.Service.UserService;
 import com.example.RealEstate.security.CustomUserDetailsService;
@@ -27,9 +29,13 @@ public class AuthController {
 
     //  REGISTER
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody User user) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+        Role role = request.getRole();
+        if (role == Role.ADMIN) {
+            throw new IllegalArgumentException("Public registration cannot create ADMIN users");
+        }
 
-        User savedUser = userService.registerUser(user);
+        User savedUser = userService.registerUser(request);
 
         AuthResponse response = new AuthResponse(
                 "User registered successfully",
