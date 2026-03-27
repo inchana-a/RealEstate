@@ -1,5 +1,6 @@
 package com.example.RealEstate.Service;
 
+import com.example.RealEstate.Dto.RegisterRequest;
 import com.example.RealEstate.Enum.Role;
 import com.example.RealEstate.Exceptions.DuplicateEmailException;
 import com.example.RealEstate.Exceptions.ResourceNotFoundException;
@@ -20,7 +21,25 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // Register a new user
-    public User registerUser(User user) {
+    public User registerUser(RegisterRequest request) {
+        return registerUser(request, false);
+    }
+
+    public User registerUser(RegisterRequest request, boolean allowAdmin) {
+        if (request.getRole() == null) {
+            throw new IllegalArgumentException("Role is required");
+        }
+        if (!allowAdmin && request.getRole() == Role.ADMIN) {
+            throw new IllegalArgumentException("ADMIN role can only be created by an admin");
+        }
+
+        User user = new User();
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setPhone(request.getPhone());
+        user.setRole(request.getRole());
+        user.setProfileImageUrl(request.getProfileImageUrl());
 
         user.setEmail(user.getEmail().toLowerCase());
 

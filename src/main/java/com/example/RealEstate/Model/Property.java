@@ -3,13 +3,13 @@ package com.example.RealEstate.Model;
 import com.example.RealEstate.Enum.PropertyStatus;
 import com.example.RealEstate.Enum.PropertyType;
 import jakarta.persistence.*;
-
-import javax.management.relation.Role;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "properties")
+@Data
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +39,9 @@ public class Property {
     private Double latitude;
     private Double longitude;
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }
