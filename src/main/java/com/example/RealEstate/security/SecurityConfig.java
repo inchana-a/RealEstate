@@ -40,7 +40,7 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/api/users/**",
                                 "/api/properties/**",
-
+                                "/api/search/**",
                                 "/swagger-ui.html"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/properties/**").permitAll()

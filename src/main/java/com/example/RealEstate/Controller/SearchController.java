@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/search")
 @RequiredArgsConstructor
 public class SearchController {
 
     private final PropertyService propertyService;
 
     //GET /api/properties/search -> search API
-    @GetMapping("/search")
+    @GetMapping
     public ResponseEntity<Page<Property>> searchProperties(
             @RequestParam(required = false) String city,
             @RequestParam(required = false) PropertyType type,
