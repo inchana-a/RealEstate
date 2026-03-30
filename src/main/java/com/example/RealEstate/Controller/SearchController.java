@@ -1,4 +1,56 @@
 package com.example.RealEstate.Controller;
 
+
+import com.example.RealEstate.Enum.PropertyType;
+import com.example.RealEstate.Model.Property;
+import com.example.RealEstate.Service.PropertyService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+
+@RestController
+@RequestMapping
+@RequiredArgsConstructor
 public class SearchController {
+
+    private final PropertyService propertyService;
+
+    //GET /api/properties/search -> search API
+    @GetMapping("/search")
+    public ResponseEntity<Page<Property>> searchProperties(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) PropertyType type,
+            @RequestParam(required = false) Integer bhk,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) Double minArea,
+            @RequestParam(required = false) Double maxArea,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<Property> result = propertyService.searchProperties(
+                city, type, bhk, minPrice, maxPrice,
+                minArea, maxArea, sortBy, sortDir, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+    // 📦 GET ALL PROPERTIES
+    @GetMapping("/")
+    public Page<Property> getAllProperties(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return propertyService.getAllProperties(page, size);
+    }
+
+    // 📄 GET PROPERTY BY ID
+    @GetMapping("/{id}")
+    public Property getPropertyById(@PathVariable Long id) {
+        return propertyService.getPropertyById(id);
+    }
 }
