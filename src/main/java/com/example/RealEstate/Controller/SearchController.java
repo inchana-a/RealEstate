@@ -24,6 +24,7 @@ public class SearchController {
             @RequestParam(required = false) String city,
             @RequestParam(required = false) PropertyType type,
             @RequestParam(required = false) Integer bhk,
+            @RequestParam(required = false) Integer bathrooms,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) Double minArea,
@@ -34,7 +35,7 @@ public class SearchController {
             @RequestParam(defaultValue = "10") int size
     ) {
         Page<Property> result = propertyService.searchProperties(
-                city, type, bhk, minPrice, maxPrice,
+                city, type, bhk, bathrooms, minPrice, maxPrice,
                 minArea, maxArea, sortBy, sortDir, page, size
         );
         return ResponseEntity.ok(result);

@@ -12,6 +12,7 @@ public class PropertySpecification {
             String city,
             PropertyType type,
             Integer bhk,
+            Integer bathrooms,
             BigDecimal minPrice,
             BigDecimal maxPrice,
             Double minArea,
@@ -36,7 +37,10 @@ public class PropertySpecification {
                 predicates = cb.and(predicates,
                         cb.equal(root.get("bedrooms"), bhk));
             }
-
+            if (bathrooms != null) {
+                predicates = cb.and(predicates,
+                        cb.equal(root.get("bathrooms"), bathrooms));
+            }
             if (minPrice != null) {
                 predicates = cb.and(predicates,
                         cb.greaterThanOrEqualTo(root.get("price"), minPrice));

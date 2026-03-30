@@ -30,6 +30,7 @@ public class PropertyService {
             String city,
             PropertyType type,
             Integer bhk,
+            Integer bathrooms,
             BigDecimal minPrice,
             BigDecimal maxPrice,
             Double minArea,
@@ -46,7 +47,7 @@ public class PropertyService {
         Pageable pageable = PageRequest.of(page, size, sort);
 
         var spec = PropertySpecification.filterProperties(
-                city, type, bhk, minPrice, maxPrice, minArea, maxArea
+                city, type, bhk,bathrooms, minPrice, maxPrice, minArea, maxArea
         );
 
         return propertyRepository.findAll(spec, pageable);
