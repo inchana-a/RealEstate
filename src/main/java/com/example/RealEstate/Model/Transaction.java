@@ -1,7 +1,7 @@
 package com.example.RealEstate.Model;
 import com.example.RealEstate.Enum.PaymentMethod;
+import com.example.RealEstate.Enum.TransactionStatus;
 import jakarta.persistence.*;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
