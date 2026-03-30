@@ -40,17 +40,17 @@ public class SearchController {
         return ResponseEntity.ok(result);
     }
     // 📦 GET ALL PROPERTIES
-    @GetMapping("/")
-    public Page<Property> getAllProperties(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
-    ) {
-        return propertyService.getAllProperties(page, size);
-    }
+//    @GetMapping("/")
+//    public Page<Property> getAllProperties(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size
+//    ) {
+//        return propertyService.getAllProperties(page, size);
+//    }
 
     // 📄 GET PROPERTY BY ID
-    @GetMapping("/{id}")
-    public Property getPropertyById(@PathVariable Long id) {
-        return propertyService.getPropertyById(id);
-    }
+//    @GetMapping("/{id}")
+//    public Property getPropertyById(@PathVariable Long id) {
+//        return propertyService.getPropertyById(id);
+//    }
 }

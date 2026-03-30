@@ -24,8 +24,9 @@ import java.util.List;
 public class PropertyService {
 
     private final PropertyRepository propertyRepository;
+    private final UserService userService;
 
-   public Page<Property> searchProperties(
+    public Page<Property> searchProperties(
             String city,
             PropertyType type,
             Integer bhk,
@@ -37,31 +38,30 @@ public class PropertyService {
             String sortDir,
             int page,
             int size
-    ){
-       Sort sort = sortDir.equalsIgnoreCase("desc")
-               ? Sort.by(sortBy).descending()
-               : Sort.by(sortBy).ascending();
+    ) {
+        Sort sort = sortDir.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
 
-       Pageable pageable = PageRequest.of(page, size, sort);
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-       var spec = PropertySpecification.filterProperties(
-               city, type, bhk, minPrice, maxPrice, minArea, maxArea
-       );
+        var spec = PropertySpecification.filterProperties(
+                city, type, bhk, minPrice, maxPrice, minArea, maxArea
+        );
 
-       return propertyRepository.findAll(spec, pageable);
-   }
-
-    // 📦 GET ALL PROPERTIES
-    public Page<Property> getAllProperties(int page, int size) {
-        return propertyRepository.findAll(PageRequest.of(page, size));
+        return propertyRepository.findAll(spec, pageable);
     }
 
-    // 📄 GET PROPERTY BY ID
-    public Property getPropertyById(Long id) {
-        return propertyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Property not found"));
-    private final UserService userService;
+    // 📦 GET ALL PROPERTIES
+//    public Page<Property> getAllProperties(int page, int size) {
+//        return propertyRepository.findAll(PageRequest.of(page, size));
+//    }
 
+    // 📄 GET PROPERTY BY ID
+//    public Property getPropertyById(Long id) {
+//        return propertyRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Property not found"));
+//    }
     public Property createProperty(PropertyDTO propertyDTO) {
         User owner = userService.getUserById(propertyDTO.getOwnerId());
 
@@ -114,3 +114,4 @@ public class PropertyService {
         property.setLongitude(propertyDTO.getLongitude());
     }
 }
+
