@@ -16,6 +16,7 @@ public class SavedSearchController {
 
     @PostMapping("/save")
     public SavedSearch saveSearch(@RequestBody SavedSearch search) {
+
         return savedSearchrepository.save(search);
     }
 

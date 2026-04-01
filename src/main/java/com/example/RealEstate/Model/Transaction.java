@@ -1,13 +1,15 @@
 package com.example.RealEstate.Model;
 import com.example.RealEstate.Enum.PaymentMethod;
 import jakarta.persistence.*;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
+import com.example.RealEstate.Enum.TransactionStatus;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
+@Data
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
