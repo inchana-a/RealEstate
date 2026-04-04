@@ -1,5 +1,6 @@
 package com.example.RealEstate.Service;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -13,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
+@Getter
 public class FileStorageService {
 
     private final Path uploadRoot;
@@ -27,7 +29,9 @@ public class FileStorageService {
             throw new IllegalArgumentException("Image file is required");
         }
 
-        String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
+        String originalFilename = StringUtils.cleanPath(
+                file.getOriginalFilename() != null ? file.getOriginalFilename() : ""
+        );
         String extension = "";
         int lastDotIndex = originalFilename.lastIndexOf('.');
         if (lastDotIndex >= 0) {
@@ -59,9 +63,5 @@ public class FileStorageService {
         } catch (IOException ex) {
             throw new IllegalStateException("Failed to delete image file", ex);
         }
-    }
-
-    public Path getUploadRoot() {
-        return uploadRoot;
     }
 }
