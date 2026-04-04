@@ -1,5 +1,6 @@
 package com.example.RealEstate.Dto;
 
+import com.example.RealEstate.Enum.ListingType;
 import com.example.RealEstate.Enum.PropertyStatus;
 import com.example.RealEstate.Enum.PropertyType;
 import lombok.Data;
@@ -23,4 +24,5 @@ public class PropertyDTO {
     private String country;
     private Double latitude;
     private Double longitude;
+    private ListingType listingType;
 }
