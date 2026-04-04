@@ -1,14 +1,17 @@
 package com.example.RealEstate.Dto;
 
+import com.example.RealEstate.Enum.ListingType;
 import com.example.RealEstate.Enum.PropertyStatus;
 import com.example.RealEstate.Enum.PropertyType;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class PropertyDTO {
+public class PropertyResponseDTO {
+    private Long propertyId;
     private Long ownerId;
     private String title;
     private String description;
@@ -24,5 +27,7 @@ public class PropertyDTO {
     private String country;
     private Double latitude;
     private Double longitude;
-    private List<String> imageUrls;
+    private LocalDateTime createdAt;
+    private ListingType listingType;
+    private List<PropertyImageDTO> images;
 }

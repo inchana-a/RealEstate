@@ -1,9 +1,11 @@
 package com.example.RealEstate.Model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "property_images")
+@Data
 public class PropertyImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

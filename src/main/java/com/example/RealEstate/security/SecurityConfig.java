@@ -32,18 +32,15 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.GET, "/api/properties/**").permitAll()
                         .requestMatchers(
-
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/api/auth/**",
-                                "/api/users/**",
-                                "/api/properties/**",
                                 "/api/search/**",
-                                "/swagger-ui.html"
+                                "/uploads/**"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/properties/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("BUYER", "SELLER", "AGENT", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("BUYER", "SELLER", "AGENT", "ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/users/**").hasRole("ADMIN")
