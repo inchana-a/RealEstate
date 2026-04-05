@@ -114,6 +114,19 @@ public class PropertyService {
         property.setCountry(propertyDTO.getCountry());
         property.setLatitude(propertyDTO.getLatitude());
         property.setLongitude(propertyDTO.getLongitude());
+        property.setListingType(propertyDTO.getListingType());
+    }
+
+    public Page<Property> searchByListingType(
+            String city,
+            ListingType listingType,
+            int page,
+            int size
+    ) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return propertyRepository.findByCityAndListingType(city, listingType, pageable);
     }
 
     public Page<Property> searchByListingType(
