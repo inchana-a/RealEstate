@@ -198,6 +198,7 @@ public class PropertyService {
         property.setCountry(propertyDTO.getCountry());
         property.setLatitude(propertyDTO.getLatitude());
         property.setLongitude(propertyDTO.getLongitude());
+        property.setListingType(propertyDTO.getListingType());
     }
 
     private void syncPropertyImages(Property property, List<String> imageUrls) {
