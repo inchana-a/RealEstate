@@ -1,5 +1,6 @@
 package com.example.RealEstate.Model;
 
+import com.example.RealEstate.Enum.ListingType;
 import com.example.RealEstate.Enum.PropertyStatus;
 import com.example.RealEstate.Enum.PropertyType;
 import jakarta.persistence.*;
@@ -39,6 +40,9 @@ public class Property {
     private Double latitude;
     private Double longitude;
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private ListingType listingType;
 
     @PrePersist
     protected void onCreate() {

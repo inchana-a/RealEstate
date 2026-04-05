@@ -1,5 +1,6 @@
 package com.example.RealEstate.Service;
 
+import com.example.RealEstate.Enum.ListingType;
 import com.example.RealEstate.Enum.PropertyType;
 import com.example.RealEstate.Model.Property;
 import com.example.RealEstate.Repository.PropertyRepository;
@@ -53,12 +54,12 @@ public class PropertyService {
         return propertyRepository.findAll(spec, pageable);
     }
 
-    // 📦 GET ALL PROPERTIES
+    //                                 GET ALL PROPERTIES
 //    public Page<Property> getAllProperties(int page, int size) {
 //        return propertyRepository.findAll(PageRequest.of(page, size));
 //    }
 
-    // 📄 GET PROPERTY BY ID
+    // GET PROPERTY BY ID
 //    public Property getPropertyById(Long id) {
 //        return propertyRepository.findById(id)
 //                .orElseThrow(() -> new RuntimeException("Property not found"));
@@ -70,11 +71,11 @@ public class PropertyService {
         mapToEntity(propertyDTO, property, owner);
         return propertyRepository.save(property);
     }
-
+    //  GET ALL PROPERTIES
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
     }
-
+    //  GET PROPERTY BY ID
     public Property getPropertyById(Long id) {
         return propertyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property not found with id: " + id));
@@ -113,6 +114,18 @@ public class PropertyService {
         property.setCountry(propertyDTO.getCountry());
         property.setLatitude(propertyDTO.getLatitude());
         property.setLongitude(propertyDTO.getLongitude());
+    }
+
+    public Page<Property> searchByListingType(
+            String city,
+            ListingType listingType,
+            int page,
+            int size
+    ) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return propertyRepository.findByCityAndListingType(city, listingType, pageable);
     }
 }
 

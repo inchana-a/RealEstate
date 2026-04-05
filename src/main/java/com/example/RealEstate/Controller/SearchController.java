@@ -1,6 +1,7 @@
 package com.example.RealEstate.Controller;
 
 
+import com.example.RealEstate.Enum.ListingType;
 import com.example.RealEstate.Enum.PropertyType;
 import com.example.RealEstate.Model.Property;
 import com.example.RealEstate.Service.PropertyService;
@@ -19,7 +20,7 @@ public class SearchController {
     private final PropertyService propertyService;
 
     //GET /api/properties/search -> search API
-    @GetMapping
+//    @GetMapping
     public ResponseEntity<Page<Property>> searchProperties(
             @RequestParam(required = false) String city,
             @RequestParam(required = false) PropertyType type,
@@ -40,6 +41,22 @@ public class SearchController {
         );
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping
+    public ResponseEntity<Page<Property>> searchByListingType(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) ListingType listingType,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+
+        Page<Property> result = propertyService.searchByListingType(
+                city, listingType, page, size
+        );
+
+        return ResponseEntity.ok(result);
+    }
+
     // 📦 GET ALL PROPERTIES
 //    @GetMapping("/")
 //    public Page<Property> getAllProperties(
