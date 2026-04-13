@@ -239,6 +239,9 @@ public class PropertyService {
         PropertyResponseDTO response = new PropertyResponseDTO();
         response.setPropertyId(property.getPropertyId());
         response.setOwnerId(property.getOwner().getUserId());
+        response.setOwnerName(property.getOwner().getFullName());
+        response.setOwnerEmail(property.getOwner().getEmail());
+        response.setOwnerPhone(property.getOwner().getPhone());
         response.setTitle(property.getTitle());
         response.setDescription(property.getDescription());
         response.setType(property.getType());

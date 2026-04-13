@@ -13,6 +13,9 @@ import java.util.List;
 public class PropertyResponseDTO {
     private Long propertyId;
     private Long ownerId;
+    private String ownerName;
+    private String ownerEmail;
+    private String ownerPhone;
     private String title;
     private String description;
     private PropertyType type;
