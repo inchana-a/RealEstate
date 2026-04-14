@@ -1,7 +1,6 @@
 package com.example.RealEstate.Model;
 
 import com.example.RealEstate.Enum.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,24 +30,25 @@ public class User {
     private String phone;
 
     @Column(nullable = false)
-    private boolean enabled = true;
+    private boolean enabled;
 
     @Column(nullable = false)
-    private boolean verified = false;   
+    private boolean verified;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    private String profileImageUrl;     // useful for agent/user profiles
+    private String profileImageUrl;
 
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;    // added: track profile edits
+    private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+        if (!enabled) enabled = true;
     }
 
     @PreUpdate

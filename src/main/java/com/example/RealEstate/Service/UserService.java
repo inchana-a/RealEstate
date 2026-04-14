@@ -122,4 +122,20 @@ public class UserService {
 
         return "Password reset successful";
     }
+    // Create default admin user if not exists
+    public void createDefaultAdmin() {
+        String adminEmail = "admin@example.com";
+        if (!userRepository.existsByEmail(adminEmail)) {
+            RegisterRequest adminRequest = new RegisterRequest();
+            adminRequest.setFullName("Admin User");
+            adminRequest.setEmail(adminEmail);
+            adminRequest.setPassword("admin123"); // default password
+            adminRequest.setRole(Role.ADMIN);
+            adminRequest.setPhone("0000000000");
+            adminRequest.setProfileImageUrl(null);
+
+            registerUser(adminRequest, true); // allowAdmin = true
+            System.out.println("Default admin created: " + adminEmail + " / admin123");
+        }
+    }
 }

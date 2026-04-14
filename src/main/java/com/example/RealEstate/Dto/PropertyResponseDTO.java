@@ -32,5 +32,8 @@ public class PropertyResponseDTO {
     private Double longitude;
     private LocalDateTime createdAt;
     private ListingType listingType;
-    private List<PropertyImageDTO> images;
+    private List<String> imageUrls;
+    private String contactName;
+    private String contactNumber;
+    private String contactEmail;
 }

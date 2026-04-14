@@ -20,24 +20,38 @@ public class SearchController {
     private final PropertyService propertyService;
 
     //GET /api/properties/search -> search API
-//    @GetMapping
+   @GetMapping("/advanced")
     public ResponseEntity<Page<Property>> searchProperties(
             @RequestParam(required = false) String city,
-            @RequestParam(required = false) PropertyType type,
+            @RequestParam(required = false) String listingType,
+            @RequestParam(required = false) String type,
             @RequestParam(required = false) Integer bhk,
+
             @RequestParam(required = false) Integer bathrooms,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) Double minArea,
             @RequestParam(required = false) Double maxArea,
+            @RequestParam(required = false) String furnishing,
+            @RequestParam(required = false) String parking ,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
+       ListingType listingTypeEnum = null;
+       PropertyType propertyTypeEnum = null;
+
+       if (listingType != null && !listingType.isEmpty()) {
+           listingTypeEnum = ListingType.valueOf(listingType);
+       }
+
+       if (type != null && !type.isEmpty()) {
+           propertyTypeEnum = PropertyType.valueOf(type);
+       }
         Page<Property> result = propertyService.searchProperties(
-                city, type, bhk, bathrooms, minPrice, maxPrice,
-                minArea, maxArea, sortBy, sortDir, page, size
+                city, listingTypeEnum,propertyTypeEnum, bhk, bathrooms, minPrice, maxPrice,
+                minArea, maxArea,furnishing,parking, sortBy, sortDir, page, size
         );
         return ResponseEntity.ok(result);
     }

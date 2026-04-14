@@ -14,7 +14,8 @@ public class FileUploadConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String location = fileStorageService.getUploadRoot().toUri().toString();
+        String location = "file:" + fileStorageService.getUploadRoot().toString() + "/";
+        System.out.println("Serving uploads from: " + location);
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(location);
     }
